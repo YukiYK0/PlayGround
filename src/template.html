@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#191524">
+<meta name="description" content="Pixels & Caos — um simulador de vida original em pixel art.">
+<title>Pixels &amp; Caos</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23191524'/%3E%3Crect x='6' y='8' width='8' height='8' fill='%23ffd166'/%3E%3Crect x='18' y='8' width='8' height='8' fill='%23ef6f6c'/%3E%3Crect x='6' y='20' width='8' height='8' fill='%236ec6d9'/%3E%3Crect x='18' y='20' width='8' height='8' fill='%238cb9a7'/%3E%3C/svg%3E">
+<style>/*__CSS__*/</style>
+</head>
+<body>
+<div id="app">
+  <canvas id="gameCanvas" aria-label="Mundo do jogo"></canvas>
+
+  <div id="topbar">
+    <div class="top-pill" id="calendarPill"><span id="dayLabel">Segunda</span><small id="dateLabel">Dia 1 · Verão</small></div>
+    <div class="top-pill weather" id="weatherPill"><span id="weatherIcon">☀️</span><small id="weatherLabel">Ensolarado</small></div>
+    <button class="icon-btn" id="notifBtn" aria-label="Notificações">📜<b id="notifBadge" class="badge hidden">1</b></button>
+  </div>
+
+  <div id="toastLayer" aria-live="polite"></div>
+
+  <div id="queueBar" class="hidden"></div>
+
+  <div id="zoomControls">
+    <button id="zoomIn" aria-label="Aproximar">+</button>
+    <button id="zoomOut" aria-label="Afastar">−</button>
+    <button id="recenterBtn" aria-label="Centralizar câmera">⌖</button>
+  </div>
+
+  <div id="selectionHint" class="hidden"></div>
+
+  <footer id="hud">
+    <div class="hud-top">
+      <button id="portraitBtn" class="portrait-wrap" aria-label="Abrir ficha do personagem">
+        <canvas id="hudPortrait" width="40" height="48"></canvas>
+        <span id="lvlBadge">1</span>
+      </button>
+      <button id="charSummary" class="hud-identity">
+        <span class="identity-line"><b id="hudName">Lia</b><em id="hudEmotion">Feliz</em></span>
+        <span class="mini-needs" id="miniNeeds"></span>
+      </button>
+      <div class="hud-stats">
+        <b id="moneyLabel">P$ 2.500</b>
+        <span id="clockLabel">08:00</span>
+        <button id="needsToggle" aria-label="Mostrar ou esconder necessidades">▾</button>
+      </div>
+    </div>
+    <div class="hud-bottom">
+      <div id="speedGroup">
+        <button data-speed="0" aria-label="Pausar">❚❚</button>
+        <button data-speed="1" class="active" aria-label="Velocidade 1">▶</button>
+        <button data-speed="2" aria-label="Velocidade 2">▶▶</button>
+        <button data-speed="3" aria-label="Velocidade 3">▶▶▶</button>
+      </div>
+      <nav id="modeBar">
+        <button data-mode="live" class="active"><span>⌂</span>Viver</button>
+        <button data-mode="buy"><span>🛋</span>Comprar</button>
+        <button data-mode="build"><span>🧱</span>Construir</button>
+        <button data-mode="map"><span>🗺</span>Mapa</button>
+        <button data-mode="phone"><span>📱</span>Celular</button>
+        <button data-mode="menu"><span>☰</span>Menu</button>
+      </nav>
+    </div>
+  </footer>
+
+  <div id="modalRoot"></div>
+  <div id="creationRoot"></div>
+
+  <section id="startScreen">
+    <div class="start-sky">
+      <div class="sun"></div>
+      <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+      <div class="city">
+        <i style="--h:48px;--w:34px"></i><i style="--h:72px;--w:44px"></i><i style="--h:38px;--w:28px"></i>
+        <i style="--h:62px;--w:50px"></i><i style="--h:86px;--w:34px"></i><i style="--h:52px;--w:48px"></i>
+        <i style="--h:68px;--w:30px"></i><i style="--h:44px;--w:54px"></i>
+      </div>
+      <div class="start-ground"></div>
+      <div class="house-pixel">
+        <div class="roof"></div><div class="house-body"><span class="win"></span><span class="win"></span><span class="door"></span></div>
+        <div class="chimney"></div>
+      </div>
+      <div class="pixel-person p1"></div><div class="pixel-person p2"></div><div class="pet-pixel"></div>
+    </div>
+    <div class="start-content">
+      <div class="logo-badge">SIM DE VIDA · 100% ORIGINAL</div>
+      <h1 class="game-logo"><span>PIXELS</span><i>&amp;</i><span>CAOS</span></h1>
+      <p class="tagline">Escolhas pequenas. Histórias gigantes.</p>
+      <div class="start-actions">
+        <button id="continueBtn" class="btn primary big hidden">▶ Continuar vida</button>
+        <button id="newGameBtn" class="btn accent big">✨ Criar minha família</button>
+        <button id="quickStartBtn" class="btn ghost">⚡ Jogo rápido</button>
+      </div>
+      <div id="slotList" class="slot-list"></div>
+      <p class="start-foot">Arraste para passear · toque para viver<br><span>sem downloads · salva sozinho no seu aparelho</span></p>
+    </div>
+  </section>
+
+  <div id="rotateNote">Melhor em pé, mas cabe aí também. 📱</div>
+</div>
+<script>/*__JS__*/</script>
+</body>
+</html>
